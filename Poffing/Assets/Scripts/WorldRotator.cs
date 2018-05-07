@@ -1,0 +1,31 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WorldRotator : MonoBehaviour {
+
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        if (Input.GetKey("right ctrl"))
+        {
+            ResetWorldRotation();
+        }
+
+        float y = Input.GetAxis("CameraHorizontal");
+        float x = Input.GetAxis("CameraVertical");
+        Vector3 movement = new Vector3(x, y, 0f);
+
+        transform.Rotate(movement, Space.World);
+    }
+
+    private void ResetWorldRotation()
+    {
+        transform.position = new Vector3(0f, 0f, 0f);
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+    }
+}
