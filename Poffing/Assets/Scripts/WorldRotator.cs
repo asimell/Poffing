@@ -10,7 +10,7 @@ public class WorldRotator : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         if (Input.GetKey("right ctrl"))
         {
             ResetWorldRotation();
@@ -18,9 +18,11 @@ public class WorldRotator : MonoBehaviour {
 
         float y = Input.GetAxis("CameraHorizontal");
         float x = Input.GetAxis("CameraVertical");
-        Vector3 movement = new Vector3(x, y, 0f);
+        Vector3 movement = new Vector3(x, 0f, 0f);
+        Vector3 localMovement = new Vector3(0f, y, 0f);
 
         transform.Rotate(movement, Space.World);
+        transform.Rotate(localMovement);
     }
 
     private void ResetWorldRotation()
