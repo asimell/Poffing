@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WorldRotator : MonoBehaviour {
 
-    private Vector3 gravity;
+    //private Vector3 gravity;
 
 	// Use this for initialization
 	void Start () {
@@ -18,14 +18,14 @@ public class WorldRotator : MonoBehaviour {
             ResetWorldRotation();
         }
 
-        AdjustGravity();
+        //AdjustGravity();
 
         float y = Input.GetAxis("CameraHorizontal");
-        float x = Input.GetAxis("CameraVertical");
-        Vector3 movement = new Vector3(x, 0f, 0f);
+        //float x = Input.GetAxis("CameraVertical");
+        //Vector3 movement = new Vector3(x, 0f, 0f);
         Vector3 localMovement = new Vector3(0f, y, 0f);
 
-        transform.Rotate(movement, Space.World);
+        //transform.Rotate(movement, Space.World);
         transform.Rotate(localMovement);
     }
 
@@ -35,9 +35,11 @@ public class WorldRotator : MonoBehaviour {
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
+    /*
     private void AdjustGravity()
     {
         gravity = transform.up.normalized * -9.8f;
         Physics.gravity = gravity;
     }
+    */
 }
