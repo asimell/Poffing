@@ -27,8 +27,6 @@ public class WorldRotator : MonoBehaviour {
 
         transform.Rotate(movement, Space.World);
         transform.Rotate(localMovement);
-
-        Debug.Log(gravity);
     }
 
     private void ResetWorldRotation()

@@ -15,9 +15,10 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        float moveHorizontal = Input.GetAxis("PlayerHorizontal");
-        float moveVertical = Input.GetAxis("PlayerVertical");
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        rb.AddForce(movement * speed);
+        float moveHorizontal = Input.GetAxisRaw("PlayerHorizontal");
+        float moveVertical = Input.GetAxisRaw("PlayerVertical");
+        Vector3 v = new Vector3(moveHorizontal, 0.0f, -moveVertical) * speed * Time.deltaTime;
+        rb.MovePosition(transform.position + v);
+        transform.rotation = Quaternion.LookRotation(v);
     }
 }

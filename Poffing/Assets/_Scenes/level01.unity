@@ -181,6 +181,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 54599859017368940, guid: fc901d8a5c47beb45b8f4f7faf8a69db,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114396277660700208, guid: fc901d8a5c47beb45b8f4f7faf8a69db,
+        type: 2}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114396277660700208, guid: fc901d8a5c47beb45b8f4f7faf8a69db,
+        type: 2}
+      propertyPath: turnSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114396277660700208, guid: fc901d8a5c47beb45b8f4f7faf8a69db,
+        type: 2}
+      propertyPath: turnSmoothTime
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc901d8a5c47beb45b8f4f7faf8a69db, type: 2}
   m_IsPrefabParent: 0
