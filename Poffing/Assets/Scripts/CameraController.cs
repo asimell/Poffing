@@ -8,10 +8,8 @@ public class CameraController : MonoBehaviour {
 
     private Camera cam;
     private float x;
-    private float y;
-    private Vector3 movement;
     private float xMin = 10f;
-    private float xMax = 60f;
+    private float xMax = 55f;
 
     // Use this for initialization
     void Start () {
@@ -22,16 +20,24 @@ public class CameraController : MonoBehaviour {
 	void Update () {
         if (Input.GetKey("right ctrl"))
         {
-            ResetWorldRotation();
+            ResetCameraRotation();
             return;
         }
 
         float x = Input.GetAxis("CameraVertical");
+        float currentRotationX = Mathf.RoundToInt(cam.transform.rotation.eulerAngles.x);
+        Debug.Log(x + " " + cam.transform.rotation.eulerAngles.x);
+        if ((x > 0 && currentRotationX == xMax) || x < 0 && currentRotationX == xMin)
+        {
+            return;
+        }
+
         Vector3 movement = new Vector3(x, 0f, 0f);
-        cam.transform.RotateAround(Vector3.zero, movement, 30f * Time.deltaTime * speed);
+        cam.transform.RotateAround(Vector3.zero, movement, 20f * Time.deltaTime * speed);
+        cam.transform.rotation = Quaternion.Euler(Mathf.Clamp(cam.transform.rotation.eulerAngles.x, xMin, xMax), 0f, 0f);
     }
 
-    private void ResetWorldRotation()
+    private void ResetCameraRotation()
     {
         cam.transform.position = new Vector3(0f, 8f, -15f);
         cam.transform.rotation = Quaternion.Euler(25f, 0f, 0f);
