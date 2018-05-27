@@ -26,7 +26,6 @@ public class CameraController : MonoBehaviour {
 
         float x = Input.GetAxis("CameraVertical");
         float currentRotationX = Mathf.RoundToInt(cam.transform.rotation.eulerAngles.x);
-        Debug.Log(x + " " + cam.transform.rotation.eulerAngles.x);
         if ((x > 0 && currentRotationX == xMax) || x < 0 && currentRotationX == xMin)
         {
             return;

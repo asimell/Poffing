@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public float speed;
+    public float jumpHeight;
 
     private Rigidbody rb;
     private Vector3 oldPos;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 
         Move(moveHorizontal, moveVertical);
         //Turn(moveHorizontal, moveVertical);
+        PlayerAction();
     }
 
     private void Move(float moveHorizontal, float moveVertical)
@@ -34,5 +36,13 @@ public class PlayerController : MonoBehaviour {
     {
         Vector3 relativePos = transform.position - oldPos;
         transform.rotation = Quaternion.LookRotation(relativePos);
+    }
+
+    private void PlayerAction()
+    {
+        if (Input.GetKey(KeyCode.Space) && transform.position.y == 1)
+        {
+            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+        }
     }
 }
