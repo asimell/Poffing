@@ -7,7 +7,9 @@ public class PlayerController : MonoBehaviour {
     public float speed;
     public float jumpHeight;
 
-    private Rigidbody rb;
+    protected Rigidbody rb;
+    protected bool isOnGround = true;
+
     private Vector3 oldPos;
 
 	// Use this for initialization
@@ -23,6 +25,11 @@ public class PlayerController : MonoBehaviour {
 
         Move(moveHorizontal, moveVertical);
         //Turn(moveHorizontal, moveVertical);
+    }
+
+    void Update()
+    {
+        isOnGround = rb.position.y == 1;
         PlayerAction();
     }
 
@@ -34,15 +41,17 @@ public class PlayerController : MonoBehaviour {
 
     private void Turn(float moveHorizontal, float moveVertical)
     {
-        Vector3 relativePos = transform.position - oldPos;
-        transform.rotation = Quaternion.LookRotation(relativePos);
+        if (Mathf.Abs(moveHorizontal) > 0 || Mathf.Abs(moveVertical) > 0)
+        {
+            Vector3 relativePos = transform.position - oldPos;
+            transform.rotation = Quaternion.LookRotation(relativePos);
+            oldPos = transform.position;
+        }
+        
     }
 
-    private void PlayerAction()
+    public virtual void PlayerAction()
     {
-        if (Input.GetKey(KeyCode.Space) && transform.position.y == 1)
-        {
-            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
-        }
+
     }
 }

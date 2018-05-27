@@ -1,0 +1,18 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PenguinController : PlayerController {
+
+    private float waitBetweenJump = 0.5f;
+    private float nextJump = 0f;
+
+    public override void PlayerAction()
+    {
+        if (Input.GetKey(KeyCode.Space) && isOnGround && Time.time >= nextJump)
+        {
+            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            nextJump = Time.time + waitBetweenJump;
+        }
+    }
+}
