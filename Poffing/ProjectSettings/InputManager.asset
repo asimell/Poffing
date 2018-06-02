@@ -169,8 +169,8 @@ InputManager:
     m_Name: PlayerVertical
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: s
-    positiveButton: w
+    negativeButton: w
+    positiveButton: s
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0

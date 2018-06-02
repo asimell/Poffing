@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PenguinController : PlayerController {
 
-    private float waitBetweenJump = 0.5f;
+    private float waitBetweenJump = 0.1f;
     private float nextJump = 0f;
 
     public override void PlayerAction()

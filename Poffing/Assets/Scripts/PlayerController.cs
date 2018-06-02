@@ -24,30 +24,27 @@ public class PlayerController : MonoBehaviour {
         float moveVertical = Input.GetAxisRaw("PlayerVertical");
 
         Move(moveHorizontal, moveVertical);
-        //Turn(moveHorizontal, moveVertical);
+        Turn(moveHorizontal, moveVertical);
     }
 
     void Update()
     {
-        isOnGround = rb.position.y == 1;
+        Vector3 groundLevel = new Vector3(rb.position.x, 1f, rb.position.z);
+        isOnGround = Vector3.Distance(rb.position, groundLevel) <= 0.1f;
         PlayerAction();
     }
 
     private void Move(float moveHorizontal, float moveVertical)
     {
-        Vector3 v = new Vector3(moveHorizontal, 0.0f, -moveVertical) * speed * Time.deltaTime;
-        rb.MovePosition(transform.position + v);
+        transform.Translate(Vector3.forward * moveVertical * speed * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.right * moveHorizontal * speed * Time.deltaTime, Space.World);
     }
 
     private void Turn(float moveHorizontal, float moveVertical)
     {
-        if (Mathf.Abs(moveHorizontal) > 0 || Mathf.Abs(moveVertical) > 0)
-        {
-            Vector3 relativePos = transform.position - oldPos;
-            transform.rotation = Quaternion.LookRotation(relativePos);
-            oldPos = transform.position;
-        }
-        
+        Vector3 relativePos = new Vector3(transform.position.x + moveHorizontal, transform.position.y, transform.position.z + moveVertical);
+        transform.LookAt(relativePos);
+        oldPos = new Vector3(transform.position.x, oldPos.y, transform.position.z);
     }
 
     public virtual void PlayerAction()
