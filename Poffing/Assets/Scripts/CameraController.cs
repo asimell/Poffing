@@ -10,10 +10,14 @@ public class CameraController : MonoBehaviour {
     private float x;
     private float xMin = 10f;
     private float xMax = 55f;
+    private Vector3 originalPos;
+    private Quaternion originalRot;
 
     // Use this for initialization
     void Start () {
         cam = GetComponentInChildren<Camera>();
+        originalPos = cam.transform.position;
+        originalRot = cam.transform.rotation;
 	}
 	
 	// Update is called once per frame
@@ -38,7 +42,7 @@ public class CameraController : MonoBehaviour {
 
     private void ResetCameraRotation()
     {
-        cam.transform.position = new Vector3(0f, 8f, -15f);
-        cam.transform.rotation = Quaternion.Euler(25f, 0f, 0f);
+        cam.transform.position = originalPos;
+        cam.transform.rotation = originalRot;
     }
 }
