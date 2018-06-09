@@ -9,11 +9,14 @@ public class PlayerController : MonoBehaviour {
     protected bool isOnGround = true;
 
     private Vector3 oldPos;
+    private Vector3 boundary;
+    private readonly float padding = 0.5f;
 
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
         oldPos = transform.position;
+        boundary = GameObject.FindGameObjectWithTag("WorldBoundary").GetComponent<Collider>().bounds.size;
 	}
 	
 	// Update is called once per frame
@@ -34,8 +37,20 @@ public class PlayerController : MonoBehaviour {
 
     private void Move(float moveHorizontal, float moveVertical)
     {
-        transform.Translate(Vector3.forward * moveVertical * speed * Time.deltaTime, Space.World);
-        transform.Translate(Vector3.right * moveHorizontal * speed * Time.deltaTime, Space.World);
+        float xBoundary = boundary.x / 2 - padding;    // World is a square, so no z-axis separation needed
+
+        // Check where the player would move and move only if it will move the player outside the boundaries
+        Vector3 newPositionZ = transform.position + Vector3.forward * moveVertical * speed * Time.deltaTime;
+        Vector3 newPositionX = transform.position + Vector3.right * moveHorizontal * speed * Time.deltaTime;
+
+        if (newPositionZ.z >= -xBoundary && newPositionZ.z <= xBoundary)
+        {
+            transform.Translate(Vector3.forward * moveVertical * speed * Time.deltaTime, Space.World);
+        }
+        if (newPositionX.x >= -xBoundary && newPositionX.x <= xBoundary)
+        {
+            transform.Translate(Vector3.right * moveHorizontal * speed * Time.deltaTime, Space.World);
+        }
     }
 
     private void Turn(float moveHorizontal, float moveVertical)
