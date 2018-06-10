@@ -8,16 +8,11 @@ public class PlayerController : MonoBehaviour {
     protected Rigidbody rb;
     protected bool isOnGround = true;
 
-    private Vector3 oldPos;
-    private Vector3 boundary;
-    private readonly float padding = 0.5f;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         rb = GetComponent<Rigidbody>();
-        oldPos = transform.position;
-        boundary = GameObject.FindGameObjectWithTag("WorldBoundary").GetComponent<Collider>().bounds.size;
-	}
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -30,6 +25,11 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            SwapCharacter();
+        }
+
         Vector3 groundLevel = new Vector3(rb.position.x, 1f, rb.position.z);
         isOnGround = Vector3.Distance(rb.position, groundLevel) <= 0.1f;
         PlayerAction();
@@ -45,7 +45,19 @@ public class PlayerController : MonoBehaviour {
     {
         Vector3 relativePos = new Vector3(transform.position.x + moveHorizontal, transform.position.y, transform.position.z + moveVertical);
         transform.LookAt(relativePos);
-        oldPos = new Vector3(transform.position.x, oldPos.y, transform.position.z);
+    }
+    
+    private void SwapCharacter()
+    {
+        GameObject[] characters = GameController.controller.characters;
+        GameController.controller.currentCharacterIndex = (GameController.controller.currentCharacterIndex + 1) % characters.Length;
+        Vector3 position = transform.position;
+        Quaternion facing = transform.rotation;
+        gameObject.SetActive(false);
+        GameObject currentCharacter = characters[GameController.controller.currentCharacterIndex];
+        currentCharacter.SetActive(true);
+        currentCharacter.transform.position = position;
+        currentCharacter.transform.rotation = facing;
     }
 
     public virtual void PlayerAction()
