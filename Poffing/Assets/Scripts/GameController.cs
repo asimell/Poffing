@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+    public static GameController controller;
     public GameObject world;
     public GameObject[] characters;
 
@@ -11,7 +12,20 @@ public class GameController : MonoBehaviour {
     private int currentCharacterIndex = 0;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
+        if (controller == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            controller = this;
+        }
+        else if (controller != this)
+        {
+            Destroy(gameObject);
+        }
+	}
+
+    private void Start()
+    {
         foreach (GameObject character in characters)
         {
             character.SetActive(false);
@@ -19,10 +33,10 @@ public class GameController : MonoBehaviour {
 
         currentCharacter = characters[0];
         currentCharacter.SetActive(true);
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update () {
 		if (Input.GetKeyDown(KeyCode.Tab))
         {
             SwapCharacter();
