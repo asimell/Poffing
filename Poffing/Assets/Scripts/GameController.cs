@@ -5,9 +5,10 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public static GameController controller;
-    public GameObject[] characters;
+    public GameObject[] characters; // Storing prefabs
     public int currentCharacterIndex = 0;
 
+    private GameObject[] gameCharacters;    // Storing the actual gameobjects in the scene
     private GameObject currentCharacter;
 
 	// Use this for initialization
@@ -25,13 +26,22 @@ public class GameController : MonoBehaviour {
 
     private void Start()
     {
-        foreach (GameObject character in characters)
+        GameObject world = GameObject.FindGameObjectWithTag("World");
+        gameCharacters = new GameObject[characters.Length];
+        for (int i = 0; i < characters.Length; i++)
         {
-            character.SetActive(false);
+            GameObject clone = (GameObject)Instantiate(characters[i], world.transform);
+            gameCharacters[i] = clone;
+            clone.SetActive(false);
         }
 
-        currentCharacter = characters[0];
+        currentCharacter = gameCharacters[0];
         currentCharacter.SetActive(true);
+    }
+
+    public GameObject[] getGameCharacters()
+    {
+        return gameCharacters;
     }
 
 }

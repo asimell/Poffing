@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour {
     
     private void SwapCharacter()
     {
-        GameObject[] characters = GameController.controller.characters;
+        GameObject[] characters = GameController.controller.getGameCharacters();
         GameController.controller.currentCharacterIndex = (GameController.controller.currentCharacterIndex + 1) % characters.Length;
         Vector3 position = transform.position;
         Quaternion facing = transform.rotation;
