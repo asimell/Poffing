@@ -27,15 +27,16 @@ public class GameController : MonoBehaviour {
     private void Start()
     {
         GameObject world = GameObject.FindGameObjectWithTag("World");
+        Transform location = GameObject.FindGameObjectWithTag("SpawnLocation").transform;
         gameCharacters = new GameObject[characters.Length];
         for (int i = 0; i < characters.Length; i++)
         {
-            GameObject clone = (GameObject)Instantiate(characters[i], world.transform);
+            GameObject clone = Instantiate(characters[i], location.position, location.rotation, world.transform);
             gameCharacters[i] = clone;
             clone.SetActive(false);
         }
 
-        currentCharacter = gameCharacters[0];
+        currentCharacter = gameCharacters[currentCharacterIndex];
         currentCharacter.SetActive(true);
     }
 
