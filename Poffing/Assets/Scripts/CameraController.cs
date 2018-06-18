@@ -28,15 +28,17 @@ public class CameraController : MonoBehaviour {
         }
 
         float x = Input.GetAxis("CameraVertical");
+        float y = Input.GetAxis("CameraHorizontal");
         float currentRotationX = Mathf.RoundToInt(cam.transform.rotation.eulerAngles.x);
         if ((x > 0 && currentRotationX == xMax) || x < 0 && currentRotationX == xMin)
         {
-            return;
+            x = 0;
         }
 
-        Vector3 movement = new Vector3(x, 0f, 0f);
-        cam.transform.RotateAround(Vector3.zero, movement, 20f * Time.deltaTime * speed);
-        cam.transform.rotation = Quaternion.Euler(Mathf.Clamp(cam.transform.rotation.eulerAngles.x, xMin, xMax), 0f, 0f);
+        Vector3 movementX = new Vector3(x, 0f, 0f);
+        Vector3 movementY = new Vector3(0f, -y, 0f);
+        transform.Rotate(movementX);
+        transform.RotateAround(Vector3.zero, movementY, 20f * Time.deltaTime * speed);
     }
 
     private void ResetCameraRotation()

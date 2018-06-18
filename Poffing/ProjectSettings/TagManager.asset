@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - WorldBoundary
+  - World
+  - SpawnLocation
+  - Tree
   layers:
   - Default
   - TransparentFX
