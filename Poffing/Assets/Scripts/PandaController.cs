@@ -4,15 +4,37 @@ using UnityEngine;
 
 public class PandaController : PlayerController {
 
-    private float waitBetweenJump = 0.1f;
-    private float nextJump = 0f;
+    private bool nextToTree = false;
 
     public override void PlayerAction()
     {
-        if (Input.GetKey(KeyCode.Space) && isOnGround && Time.time >= nextJump)
+        if (Input.GetKeyDown(KeyCode.Space) && nextToTree)
         {
-            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
-            nextJump = Time.time + waitBetweenJump;
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 1f);
+            foreach (Collider c in colliders)
+            {
+                if (c.gameObject.CompareTag("Tree"))
+                {
+                    c.gameObject.SetActive(false);
+                    return; // Only eat 1 tree
+                }
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Tree"))
+        {
+            nextToTree = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Tree"))
+        {
+            nextToTree = false;
         }
     }
 }
