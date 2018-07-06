@@ -30,15 +30,15 @@ public class PlayerController : MonoBehaviour {
             SwapCharacter();
         }
 
-        Vector3 groundLevel = new Vector3(rb.position.x, 1f, rb.position.z);
-        isOnGround = Vector3.Distance(rb.position, groundLevel) <= 0.1f;
+        //Vector3 groundLevel = new Vector3(rb.position.x, 1f, rb.position.z);
+        //isOnGround = Vector3.Distance(rb.position, groundLevel) <= 0.1f;
         PlayerAction();
     }
 
     private void Move(float moveHorizontal, float moveVertical)
     {
-        transform.Translate(Vector3.forward * moveVertical * speed * Time.deltaTime, Space.World);
-        transform.Translate(Vector3.right * moveHorizontal * speed * Time.deltaTime, Space.World);
+        transform.Translate(Camera.main.transform.forward * moveVertical * speed * Time.deltaTime, Space.World);
+        transform.Translate(Camera.main.transform.right * moveHorizontal * speed * Time.deltaTime, Space.World);
     }
 
     private void Turn(float moveHorizontal, float moveVertical)
@@ -58,6 +58,22 @@ public class PlayerController : MonoBehaviour {
         currentCharacter.SetActive(true);
         currentCharacter.transform.position = position;
         currentCharacter.transform.rotation = facing;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = false;
+        }
     }
 
     public virtual void PlayerAction()

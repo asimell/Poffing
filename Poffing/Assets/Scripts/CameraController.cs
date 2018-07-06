@@ -7,8 +7,8 @@ public class CameraController : MonoBehaviour {
     public float speed;
 
     private Camera cam;
-    private float xMin = 10f;
-    private float xMax = 55f;
+    private readonly float xMin = 10f;
+    private readonly float xMax = 55f;
     private Vector3 originalPos;
     private Quaternion originalRot;
 
