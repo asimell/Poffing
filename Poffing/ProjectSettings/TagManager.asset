@@ -8,6 +8,8 @@ TagManager:
   - World
   - SpawnLocation
   - Tree
+  - Ground
+  - PlayerHolder
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Ground
   - 
   - 
   - 

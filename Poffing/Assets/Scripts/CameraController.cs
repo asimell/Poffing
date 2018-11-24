@@ -12,6 +12,8 @@ public class CameraController : MonoBehaviour {
     private readonly float cameraMin = 3f;
     private readonly float cameraMax = 8f;
     private float originalSize;
+    private Vector3 camOriginalPos;
+    private Quaternion camOriginalRot;
     private Vector3 originalPos;
     private Quaternion originalRot;
     
@@ -19,9 +21,11 @@ public class CameraController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         cam = GetComponentInChildren<Camera>();
-        originalPos = cam.transform.position;
-        originalRot = cam.transform.rotation;
+        camOriginalPos = cam.transform.position;
+        camOriginalRot = cam.transform.rotation;
         originalSize = cam.orthographicSize;
+        originalPos = transform.position;
+        originalRot = transform.rotation;
 	}
 	
 	// Update is called once per frame
@@ -75,8 +79,10 @@ public class CameraController : MonoBehaviour {
 
     private void ResetCameraRotation()
     {
-        cam.transform.position = originalPos;
-        cam.transform.rotation = originalRot;
+        cam.transform.position = camOriginalPos;
+        cam.transform.rotation = camOriginalRot;
         cam.orthographicSize = originalSize;
+        transform.position = originalPos;
+        transform.rotation = originalRot;
     }
 }
