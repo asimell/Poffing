@@ -13,12 +13,17 @@ public class PlayerController : MonoBehaviour {
     private GameObject cameraRig;
     private LayerMask ground;
 
+    public void SetCameraRig(GameObject cameraRig)
+    {
+        this.cameraRig = cameraRig;
+    }
+
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
         ground = LayerMask.GetMask("Ground");
-        cameraRig = GameObject.Find("CameraRig");
+        cameraRig = GameObject.FindGameObjectWithTag("CameraRig");
     }
 	
 	// Update is called once per frame
@@ -36,6 +41,7 @@ public class PlayerController : MonoBehaviour {
                 transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * height, 5 * Time.deltaTime);
             }
         }*/
+        PlayerAction();
 
         Move(moveHorizontal, moveVertical);
         //MoveRigidBody(moveHorizontal, moveVertical);
@@ -51,7 +57,6 @@ public class PlayerController : MonoBehaviour {
 
         //Vector3 groundLevel = new Vector3(rb.position.x, 1f, rb.position.z);
         //isOnGround = Vector3.Distance(rb.position, groundLevel) <= 0.1f;
-        PlayerAction();
     }
 
     private void Move(float moveHorizontal, float moveVertical)

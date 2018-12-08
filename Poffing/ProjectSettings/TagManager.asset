@@ -10,6 +10,7 @@ TagManager:
   - Tree
   - Ground
   - PlayerHolder
+  - CameraRig
   layers:
   - Default
   - TransparentFX
