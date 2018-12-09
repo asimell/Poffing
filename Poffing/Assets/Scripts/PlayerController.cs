@@ -13,11 +13,6 @@ public class PlayerController : MonoBehaviour {
     private GameObject cameraRig;
     private LayerMask ground;
 
-    public void SetCameraRig(GameObject cameraRig)
-    {
-        this.cameraRig = cameraRig;
-    }
-
 
     // Use this for initialization
     void Start () {
@@ -44,7 +39,6 @@ public class PlayerController : MonoBehaviour {
         PlayerAction();
 
         Move(moveHorizontal, moveVertical);
-        //MoveRigidBody(moveHorizontal, moveVertical);
         Turn(moveHorizontal, moveVertical);
     }
 
@@ -57,20 +51,22 @@ public class PlayerController : MonoBehaviour {
 
         //Vector3 groundLevel = new Vector3(rb.position.x, 1f, rb.position.z);
         //isOnGround = Vector3.Distance(rb.position, groundLevel) <= 0.1f;
+        //PlayerAction();
     }
 
     private void Move(float moveHorizontal, float moveVertical)
     {
         //transform.Translate(Camera.main.transform.forward * moveVertical * speed * Time.deltaTime, Space.World);
-        transform.Translate(cameraRig.transform.forward * moveVertical * speed * Time.deltaTime, Space.World);
         //transform.Translate(Camera.main.transform.right * moveHorizontal * speed * Time.deltaTime, Space.World);
-        transform.Translate(cameraRig.transform.right * moveHorizontal * speed * Time.deltaTime, Space.World);
-    }
 
-    private void MoveRigidBody(float moveHorizontal, float moveVertical)
-    {
-        Vector3 movement = (Camera.main.transform.forward * moveVertical + Camera.main.transform.right * moveHorizontal) * speed * Time.deltaTime;
-        rb.MovePosition(movement);
+        // Get direction from cameraRigs direction
+        Vector3 targetDirection = (cameraRig.transform.forward * moveVertical + cameraRig.transform.right * moveHorizontal) * speed * Time.deltaTime;
+        targetDirection.y = 0f;
+        transform.Translate(targetDirection, Space.World);
+        
+
+        //transform.Translate(cameraRig.transform.forward * moveVertical * speed * Time.deltaTime, Space.World);
+        //transform.Translate(cameraRig.transform.right * moveHorizontal * speed * Time.deltaTime, Space.World);
     }
 
     private void Turn(float moveHorizontal, float moveVertical)
