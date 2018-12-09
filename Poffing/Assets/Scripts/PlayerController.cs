@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
     public float jumpHeight;
     public float height = 0.5f;
     public float heightPadding = 0.05f;
-    
+
     protected Rigidbody rb;
     protected bool isOnGround = true;
 
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         rb = GetComponent<Rigidbody>();
         ground = LayerMask.GetMask("Ground");
         cameraRig = GameObject.FindGameObjectWithTag("CameraRig");
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour {
         //transform.Translate(Camera.main.transform.right * moveHorizontal * speed * Time.deltaTime, Space.World);
 
         // Get direction from cameraRigs direction
-        Vector3 targetDirection = (cameraRig.transform.forward * moveVertical + cameraRig.transform.right * moveHorizontal) * speed * Time.deltaTime;
+        Vector3 targetDirection = (cameraRig.transform.forward * moveVertical + cameraRig.transform.right * moveHorizontal).normalized * speed * Time.deltaTime;
         targetDirection.y = 0f;
         transform.Translate(targetDirection, Space.World);
         

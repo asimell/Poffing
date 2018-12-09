@@ -11,6 +11,8 @@ public class CameraController : MonoBehaviour {
     private readonly float xMax = 55f;
     private readonly float cameraMin = 3f;
     private readonly float cameraMax = 8f;
+
+    // For camera reset
     private float originalSize;
     private Vector3 camOriginalPos;
     private Quaternion camOriginalRot;
@@ -56,7 +58,7 @@ public class CameraController : MonoBehaviour {
         Vector3 movementX = new Vector3(x, 0f, 0f);
         Vector3 movementY = new Vector3(0f, -y, 0f);
         transform.Rotate(movementX);
-        transform.RotateAround(Vector3.zero, movementY, 20f * Time.deltaTime * speed);
+        transform.RotateAround(Vector3.zero, movementY, Time.deltaTime * speed);
     }
 
     private void ZoomIn()
